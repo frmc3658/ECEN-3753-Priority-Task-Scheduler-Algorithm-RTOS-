@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Part C validation",
+      "setup": "sudo apt install valgrind",
+      "run": "cd \"PartC\" && make clean && make && valgrind --exit-on-first-error=yes --error-exitcode=1 ./shortestjobfirst",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Part D validation",
+      "setup": "sudo apt install valgrind",
+      "run": "cd \"PartD\" && make clean && make && valgrind --exit-on-first-error=yes --error-exitcode=1 ./priority",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}
