@@ -24,6 +24,8 @@ void init(struct task_t* task, int *execution, int size)
     {
         task[i].process_id = i;
         task[i].execution_time = execution[i];
+        task[i].waiting_time = 0;
+        task[i].turnaround_time = 0;    
     }
 }
 
