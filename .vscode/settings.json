@@ -63,6 +63,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "*.embeddedhtml": "html",
-    "sjf.h": "c"
+    "sjf.h": "c",
+    "priority.h": "c"
   }
 }

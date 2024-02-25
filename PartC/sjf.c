@@ -30,6 +30,14 @@ void init(struct task_t* task, int *execution, int size)
 }
 
 
+///-------------------------------------------------
+/// @brief  Shortest Job First scheduler algorithm
+///
+/// @param[in] task The task queue array
+/// @param[in] size Size of the task queue array
+///
+/// @return None
+///-------------------------------------------------
 void shortest_job_first(struct task_t* task, int size)
 {
     // Sort the task queue based on execution time (ascending order)
@@ -72,17 +80,45 @@ void shortest_job_first(struct task_t* task, int size)
 }
 
 
+///-------------------------------------------------
+/// @brief  Calculate the average wait time of
+///         the tasks in the queue
+///
+/// @param[in] task The task queue array
+/// @param[in] size Size of the task queue array
+///
+/// @return Average wait time of all tasks in 
+///         the queue
+///-------------------------------------------------
 float calculate_average_wait_time(struct task_t* task, int size)
 {
-    // return 0.0 so it compiles
-    return 0.0;
+    float totalTime = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        totalTime += task[i].waiting_time;
+    }
+    
+    return totalTime / size;
 }
 
 
+///-------------------------------------------------
+/// @brief  Calculate the average turnaround time of
+///         the tasks in the queue
+///
+/// @return None
+///-------------------------------------------------
 float calculate_average_turn_around_time(struct task_t* task, int size)
 {
-    // return 0.0 so it compiles
-    return 0.0;
+    float totalTime = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        totalTime += task[i].turnaround_time;
+    }
+    
+    return totalTime / size;
 }
 
 

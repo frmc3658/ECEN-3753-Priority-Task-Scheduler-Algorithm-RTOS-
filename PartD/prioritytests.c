@@ -2,11 +2,24 @@
 #include "ctest.h"
 #include "priority.h"
 
-CTEST_DATA(priority) {
+
+///-------------------------------------------------
+/// @brief  Dataset for the priority unit-test
+///
+/// @retval  None
+///-------------------------------------------------
+CTEST_DATA(priority)
+{
     struct task_t task[3];
     int size;
 };
 
+
+///-------------------------------------------------
+/// @brief  Setup the priority unit-test
+//
+/// @retval  None
+///-------------------------------------------------
 CTEST_SETUP(priority)
 {
     int execution[] = {1, 2, 3};
@@ -16,6 +29,13 @@ CTEST_SETUP(priority)
     priority_schedule(data->task, data->size);
 }
 
+
+///-------------------------------------------------
+/// @brief  Validate the process IDs in the
+///         sorted priority dataset
+///
+/// @retval  None
+///-------------------------------------------------
 CTEST2(priority, test_process)
 {
     int sortedPID[] = {2, 1, 0};
@@ -27,6 +47,17 @@ CTEST2(priority, test_process)
 }
 
 
+/******************************
+ *    CUSTOM UNIT TEST 1      *
+ ******************************/
+
+
+///-------------------------------------------------
+/// @brief  Validate the the final priority values
+///         of the sorted priority dataset
+///
+/// @retval  None
+///-------------------------------------------------
 CTEST2(priority, sortPriority_process)
 {
     int sortedPriority[] = {24, 16, 8};
@@ -37,32 +68,74 @@ CTEST2(priority, sortPriority_process)
     }
 }
 
-#ifdef DEBUG
-CTEST_DATA(sorted)
+
+/******************************
+ *    CUSTOM UNIT TEST 2      *
+ ******************************/
+
+///-------------------------------------------------
+/// @brief  Validate the the execution times of the
+///         sorted tasks
+///
+/// @retval  None
+///-------------------------------------------------
+CTEST2(priority, exeTime_process)
 {
-    struct task_t task[10];
-    int size;
-};
+    int sortedExe[] = {3 , 2, 1};
 
-
-CTEST_SETUP(sorted)
-{
-    int execution[] = {4, 7, 1, 6, 9, 10, 2, 8, 5, 3};
-    int priority[] = {5, 7, 10, 9, 1, 3, 4, 8, 2, 6};
-    data->size = sizeof(priority) / sizeof(priority[0]);
-
-    init(data->task, execution, priority, data->size);
-    priority_schedule(data->task, data->size);
-}
-
-
-CTEST2(sorted, sortedByPriority_process)
-{
-    int sortedPriority[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-
-    for (int i = 0; i < data->size; i++)
+    for(int i = 0; i < data->size; i++)
     {
-        ASSERT_EQUAL(sortedPriority[i], data->task[i].priority);
+        ASSERT_EQUAL(sortedExe[i], data->task[i].execution_time);
     }
 }
-#endif
+
+
+/******************************
+ *    CUSTOM UNIT TEST 3      *
+ ******************************/
+
+
+///-------------------------------------------------
+/// @brief  Validate the the wait times of the
+///         sorted tasks
+///
+/// @retval  None
+///-------------------------------------------------
+CTEST2(priority, waitTime_process)
+{
+    int sortedWaitTime[] = {2, 4, 1};
+
+    for(int i = 0; i < data->size; i++)
+    {
+        ASSERT_EQUAL(sortedWaitTime[i], data->task[i].waiting_time);
+    }
+}
+
+
+/******************************
+ *    CUSTOM UNIT TEST 4      *
+ ******************************/
+
+
+///-------------------------------------------------
+/// @brief  Validate the the turnaround times of the
+///         sorted tasks
+///
+/// @retval  None
+///-------------------------------------------------
+CTEST2(priority, turnAroundTime_process)
+{
+    int sortedTurnAroundTimes[] = {5, 6, 2};
+
+    for(int i = 0; i < data->size; i++)
+    {
+        ASSERT_EQUAL(sortedTurnAroundTimes[i], data->task[i].turnaround_time);
+    }
+}
+
+
+/******************************
+ *    CUSTOM UNIT TEST 5      *
+ ******************************/
+
+

@@ -16,6 +16,22 @@ static void sortTasksByPriority(struct task_t* task, int size);
 static void sortQueueByPriority(struct node_t** head);
 
 
+///-------------------------------------------------
+/// @brief  Initializes the Priority Scheduled
+///         unit tests
+///
+/// @param[in] task The task queue array
+/// @param[in] execution Array containing the
+///                      execution times of each
+///                      task
+/// @param[in] priority Array containing the
+///                     priority level of each
+///                     task
+/// @param[in] size Size of the task queue array
+///
+/// @return Average wait time of all tasks in 
+///         the queue
+///-------------------------------------------------
 void init(struct task_t* task, int *execution, int* priority, int size)
 {
     for(int i = 0; i < size; i++)
@@ -30,14 +46,16 @@ void init(struct task_t* task, int *execution, int* priority, int size)
 }
 
 
+///-------------------------------------------------
+/// @brief  Priority scheduler algorithm
+///
+/// @param[in] task The task queue array
+/// @param[in] size Size of the task queue array
+///
+/// @return None
+///-------------------------------------------------
 void priority_schedule(struct task_t* task, int size)
 {
-    // Hints:
-    // 1. Create Queue based on the task array in the correct order
-    // 2. Each task can be processed for a time interval of 1 (i.e quantum time of 1)
-    // 3. You can process by pushing and popping items from the queue
-    // 4. You must recalculate the priorities after every turn
-
     int runTime = 0;
     int taskRuntime = 0;
     int lastTaskRan = INT_MAX;
@@ -111,20 +129,58 @@ void priority_schedule(struct task_t* task, int size)
 }
 
 
+///-------------------------------------------------
+/// @brief  Calculate the average wait time of
+///         the tasks in the queue
+///
+/// @param[in] task The task queue array
+/// @param[in] size Size of the task queue array
+///
+/// @return Average wait time of all tasks in 
+///         the queue
+///-------------------------------------------------
 float calculate_average_wait_time(struct task_t* task, int size)
 {
-    // return 0.0 so it compiles
-    return 0.0;
+    float totalTime = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        totalTime += task[i].waiting_time;
+    }
+    
+    return totalTime / size;
 }
 
 
+///-------------------------------------------------
+/// @brief  Calculate the average turnaround time of
+///         the tasks in the queue
+///
+/// @return None
+///-------------------------------------------------
 float calculate_average_turn_around_time(struct task_t* task, int size)
 {
-    // return 0.0 so it compiles
-    return 0.0;
+    float totalTime = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        totalTime += task[i].turnaround_time;
+    }
+    
+    return totalTime / size;
 }
 
 
+///-------------------------------------------------
+/// @brief  Updates the priority of each task
+///         in the task queue
+///
+/// @param[in] head The head of the task queue
+/// @param[in] runTime The current runtime of
+///                    the system
+///
+/// @return None
+///-------------------------------------------------
 static void updateTasksPriority(struct node_t** head, int runTime)
 {
     struct node_t* queue = (*head);
@@ -217,17 +273,21 @@ static void sortQueueByPriority(struct node_t** head)
     bool swapped = true;
     struct node_t* sentinel = queue;
 
+    // Performs a bubble sort on the queue
+    // in order to sort by priority
     while(swapped)
     {
         swapped = false;
 
         struct node_t* currentNode = sentinel->next;
 
+        // Traverse the queue (inner loop)
         while((currentNode != sentinel) && (currentNode->next != sentinel))
         {
             struct task_t* currentTask = currentNode->task;
             struct task_t* nextTask = currentNode->next->task;
 
+            // Swap nodes if needed
             if(currentTask->priority < nextTask->priority)
             {
                 swapNodes(currentNode, currentNode->next);
@@ -250,23 +310,36 @@ static void sortQueueByPriority(struct node_t** head)
 ///-------------------------------------------------
 static void swapNodes(struct node_t* nodeA, struct node_t* nodeB)
 {
+    // No need to swap if both nodes are the same
     if(nodeA == nodeB)
     {
         return;
     }
 
+    // Swap position of nodes
     struct node_t temp = *nodeA;
     *nodeA = *nodeB;
     *nodeB = temp;
 
+    // Swap next pointers to maintain
+    // proper order
     struct node_t* tempNext = nodeA->next;
     nodeA->next = nodeB->next;
     nodeB->next = tempNext;
 }
 
 
+///-------------------------------------------------
+/// @brief  Swap the position of two tasks in the queue
+///
+/// @param[in] taskA Current task
+/// @param[in] taskB Next task
+///
+/// @return None
+///-------------------------------------------------
 static void swapTasks(struct task_t* taskA, struct task_t* taskB)
 {
+    // No need to swap if both tasks are the same
     if(taskA == taskB)
     {
         return;
