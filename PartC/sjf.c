@@ -2,7 +2,7 @@
 #include "queue.h"
 #include <stdio.h>
 
-static void swap(struct task_t* taskA, struct task_t* taskB);
+static void swapTasks(struct task_t* taskA, struct task_t* taskB);
 static void sortTasksByExecutionTime(struct task_t* task, int size);
 
 
@@ -32,11 +32,6 @@ void init(struct task_t* task, int *execution, int size)
 
 void shortest_job_first(struct task_t* task, int size)
 {
-    // Hints:
-    // 1. Create Queue based on the task array in the correct order
-    // 2. Process each "task" until completion
-    // 3. You can process by popping items from the queue
-
     // Sort the task queue based on execution time (ascending order)
     sortTasksByExecutionTime(task, size);
 
@@ -74,7 +69,6 @@ void shortest_job_first(struct task_t* task, int size)
     // Cleanup
     free(queue->next);
     free(queue);
-
 }
 
 
@@ -110,7 +104,7 @@ static void sortTasksByExecutionTime(struct task_t* task, int size)
         {
             if(task[j].execution_time > task[j + 1].execution_time)
             {
-                swap(&task[j], &task[j + 1]);      
+                swapTasks(&task[j], &task[j + 1]);      
             }
         }
     }
@@ -125,7 +119,7 @@ static void sortTasksByExecutionTime(struct task_t* task, int size)
 ///
 /// @return None
 ///-------------------------------------------------
-static void swap(struct task_t* taskA, struct task_t* taskB)
+static void swapTasks(struct task_t* taskA, struct task_t* taskB)
 {
     struct task_t temp = *taskA;
     *taskA = *taskB;
