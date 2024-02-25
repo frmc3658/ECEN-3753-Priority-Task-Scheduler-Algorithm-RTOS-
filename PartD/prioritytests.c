@@ -4,7 +4,7 @@
 
 
 ///-------------------------------------------------
-/// @brief  Dataset for the priority unit-test
+/// @brief  Dataset for priority unit-test
 ///
 /// @retval  None
 ///-------------------------------------------------
@@ -53,7 +53,7 @@ CTEST2(priority, test_process)
 
 
 ///-------------------------------------------------
-/// @brief  Validate the the final priority values
+/// @brief  Validate the final priority values
 ///         of the sorted priority dataset
 ///
 /// @retval  None
@@ -74,7 +74,7 @@ CTEST2(priority, sortPriority_process)
  ******************************/
 
 ///-------------------------------------------------
-/// @brief  Validate the the execution times of the
+/// @brief  Validate the execution times of the
 ///         sorted tasks
 ///
 /// @retval  None
@@ -96,7 +96,7 @@ CTEST2(priority, exeTime_process)
 
 
 ///-------------------------------------------------
-/// @brief  Validate the the wait times of the
+/// @brief  Validate the wait times of the
 ///         sorted tasks
 ///
 /// @retval  None
@@ -118,7 +118,7 @@ CTEST2(priority, waitTime_process)
 
 
 ///-------------------------------------------------
-/// @brief  Validate the the turnaround times of the
+/// @brief  Validate the turnaround times of the
 ///         sorted tasks
 ///
 /// @retval  None
@@ -139,3 +139,17 @@ CTEST2(priority, turnAroundTime_process)
  ******************************/
 
 
+///-------------------------------------------------
+/// @brief  Validate that the
+///
+/// @retval  None
+///-------------------------------------------------
+CTEST2(priority, leftToExecute_process)
+{
+    int leftToExecute[] = {0, 0, 0};
+
+    for(int i = 0; i < data->size; i++)
+    {
+        ASSERT_EQUAL(leftToExecute[i], data->task[i].left_to_execute);
+    }
+}

@@ -171,7 +171,7 @@ int is_empty(struct node_t** head)
 
 ///-------------------------------------------------
 /// @brief  Traverse the queue and free all memory
-///         aside from the the sentinel
+///         aside from the sentinel
 ///
 /// @param[in] head The head of the queue to empty
 ///-------------------------------------------------
